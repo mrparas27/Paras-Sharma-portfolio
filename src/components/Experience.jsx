@@ -11,9 +11,9 @@ const TIMELINE_DATA = [
     icon: <Briefcase size={18} />,
     color: "cyber-cyan",
     bullets: [
-      "Extracted and normalized automotive assembly logs, scrubbing datasets and resolving discrepancies using Python.",
-      "Designed and deployed interactive Power BI dashboards with custom SQL adapters, providing plant managers with real-time operational diagnostics.",
-      "Trained statistical anomaly detection algorithms and regression models to predict vehicle component failures and streamline supply logistics."
+      "Worked on Perpetual Inventory System to track stock movements and enhance inventory accuracy.",
+      "Gained hands-on experience in real-time projects involving inventory management solutions.",
+      "Developed analytical skills to optimize warehouse and supply chain operations."
     ]
   },
   {

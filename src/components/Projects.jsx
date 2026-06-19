@@ -16,39 +16,39 @@ const PROJECTS_DATA = [
   },
   {
     id: 2,
-    title: "Medical AI Assistant",
-    description: "A specialized clinical assistant designed to answer diagnostic queries, summarize patient notes, and provide symptom analysis references using fine-tuned transformer heuristics.",
-    tags: ["Python", "PyTorch", "Transformers", "Bio-NLP", "APIs"],
+    title: "Medical AI Professional Assistant",
+    description: "Built a clinical diagnostic support tool using Retrieval-Augmented Generation (RAG). Medical documents are processed, embedded, and queried in a vector space to produce accurate medical guidance.",
+    tags: ["Python", "FastAPI", "React", "RAG", "OpenAI API", "Pinecone"],
     github: "https://github.com/mrparas27/Medical-AI-Professional-Assistant",
-    demo: "https://github.com/mrparas27/Medical-AI-Professional-Assistant",
-    details: "Incorporates query verification algorithms to ensure clinical summaries cite biomedical references. Trained on curated open diagnostic dialogue datasets."
+    demo: "https://ai-professional.netlify.app/",
+    details: "Eliminates hallucinations by constraining responses to trusted corpus segments. Powered by LangChain, OpenAI embeddings, and ChromaDB/Pinecone. Deployed on Netlify."
   },
   {
     id: 3,
-    title: "Recommendation System",
-    description: "An AI-powered multi-domain engine recommending items (books, movies, retail products) by combining collaborative filtering, neural embeddings, and content filtering models.",
-    tags: ["Python", "Scikit-Learn", "Pandas", "PyTorch", "Flask"],
+    title: "Multi-Domain Recommendation System",
+    description: "An AI-powered music and multi-domain recommendation engine combining collaborative filtering, neural embeddings, and content filtering models.",
+    tags: ["Python", "PyTorch", "Scikit-Learn", "Pandas", "Flask"],
     github: "https://github.com/mrparas27/AI-Powered-Multi-Domain-Recommendation-System",
     demo: "https://ai-powered-multi-domain-recommendation-wofc.onrender.com/music/",
-    details: "Utilizes matrix factorization techniques combined with semantic sentence similarities of items to suggest highly accurate recommendations."
+    details: "Utilizes matrix factorization combined with semantic sentence similarities of items to suggest recommendations. Deployed live on Render."
   },
   {
     id: 4,
-    title: "Data Analyst Portfolio",
-    description: "An operations analysis repository featuring vehicle manufacturing efficiency reviews, inventory audits, and sales forecasting dashboards built using Python, SQL, and Power BI.",
-    tags: ["Python", "SQL", "Pandas", "Power BI", "Data Mining"],
+    title: "Road Accident Analysis Dashboard",
+    description: "Designed and built an interactive dashboard to consolidate scattered road accident data, identifying regional patterns, hotspots, and major causal trends.",
+    tags: ["Power BI", "Tableau", "SQL", "Data Cleaning"],
     github: "https://github.com/mrparas27/Data-Analyst-Portfolio-Project",
     demo: "https://github.com/mrparas27/Data-Analyst-Portfolio-Project",
-    details: "Translates industrial assembly logs into actionable capacity optimizations. Developed using the same principles applied during the Maruti Suzuki internship."
+    details: "Leveraged SQL queries for data cleaning, transformation, and ingestion. Renders actionable metrics to inform road safety improvements."
   },
   {
     id: 5,
-    title: "AI FAQ Assistant",
-    description: "An automated document retrieval bot capability. Parses document PDFs and answers customer inquiries with semantic correctness using sentence embeddings and database matches.",
-    tags: ["Python", "ChromaDB", "FastAPI", "Embeddings", "SQL"],
-    github: "https://github.com/mrparas27/AI-Powered-FAQ-Assistant-",
-    demo: "https://github.com/mrparas27/AI-Powered-FAQ-Assistant-",
-    details: "Uses vector databases (ChromaDB) to cache document segments, minimizing token processing costs while ensuring zero-latency response retrieval."
+    title: "Book Recommendation System",
+    description: "Developed a recommendation dashboard using similarity-based algorithms to help readers find books from a large collection based on interests and ratings.",
+    tags: ["Python", "Streamlit", "Pandas", "Scikit-Learn", "AWS EC2"],
+    github: "https://github.com/mrparas27/BookRecommenderSystem",
+    demo: "http://13.60.49.214:8051/",
+    details: "Utilizes collaborative filtering algorithms deployed on an AWS EC2 instance running Streamlit for public access."
   }
 ];
 

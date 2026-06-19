@@ -4,10 +4,8 @@ import { Terminal, ArrowRight, Download, Mail } from 'lucide-react';
 
 const TYPING_TITLES = [
   "AI/ML Engineer",
-  "Data Scientist",
-  "Data Analyst",
-  "Computer Vision Specialist",
-  "Deep Learning Enthusiast"
+  "Data Science Enthusiast",
+  "Data Analyst Intern at Maruti Suzuki"
 ];
 
 export default function Hero() {
@@ -55,61 +53,136 @@ export default function Hero() {
         <head>
           <title>Paras Sharma Resume</title>
           <style>
-            body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #333; line-height: 1.6; padding: 40px; }
-            h1 { font-size: 32px; margin-bottom: 5px; color: #111; }
-            .subtitle { font-size: 16px; color: #666; font-style: italic; margin-bottom: 25px; }
-            .section { margin-bottom: 30px; }
-            .section-title { font-size: 20px; font-weight: bold; border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 15px; }
-            .job { margin-bottom: 15px; }
-            .job-title { font-weight: bold; }
-            .job-date { float: right; color: #666; }
-            ul { margin-top: 5px; padding-left: 20px; }
-            .contact-info { margin-bottom: 20px; font-size: 14px; }
+            body { font-family: 'Segoe UI', Arial, sans-serif; color: #222; line-height: 1.5; padding: 30px; margin: 0; background: #fff; }
+            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
+            h1 { font-size: 28px; margin: 0 0 5px 0; color: #111; text-transform: uppercase; letter-spacing: 1px; }
+            .contact-info { font-size: 13px; color: #444; margin-bottom: 5px; }
+            .contact-info a { color: #0284c7; text-decoration: none; }
+            .section { margin-bottom: 22px; }
+            .section-title { font-size: 16px; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin-bottom: 10px; color: #111; text-transform: uppercase; letter-spacing: 0.5px; }
+            .item { margin-bottom: 12px; }
+            .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #111; }
+            .item-sub { font-style: italic; font-size: 13px; color: #555; margin-top: 1px; }
+            ul { margin: 5px 0 0 0; padding-left: 18px; font-size: 13px; color: #333; }
+            li { margin-bottom: 4px; }
+            .skills-grid { font-size: 13px; color: #333; }
+            .skills-grid div { margin-bottom: 5px; }
           </style>
         </head>
         <body>
-          <h1>Paras Sharma</h1>
-          <div class="contact-info">
-            Phone: 9899946943 | Email: mr.paras.gautam@gmail.com<br>
-            GitHub: github.com/mrparas27 | LinkedIn: linkedin.com/in/parassharma27/
+          <div class="header">
+            <h1>Paras Sharma</h1>
+            <div class="contact-info">
+              Phone: +91 9899946943 | Email: <a href="mailto:mr.paras.gautam@gmail.com">mr.paras.gautam@gmail.com</a> | Location: Gurugram, Haryana 122001
+            </div>
+            <div class="contact-info">
+              LinkedIn: <a href="https://www.linkedin.com/in/parassharma27" target="_blank">linkedin.com/in/parassharma27</a> | GitHub: <a href="https://github.com/mrparas27" target="_blank">github.com/mrparas27</a>
+            </div>
           </div>
-          <div class="subtitle">AI/ML Engineer | Data Analyst | Data Scientist</div>
           
+          <div class="section">
+            <div class="section-title">Professional Summary</div>
+            <div style="font-size: 13px; text-align: justify; color: #333;">
+              Computer Science undergraduate skilled in Python, Machine Learning, SQL, Generative AI, and LLM-based application development. Experienced in building AI-powered systems using RAG, LangChain, FastAPI, Pinecone, and OpenAI APIs. Hands-on experience with data analysis, model integration, cloud deployment, and scalable AI solutions. Passionate about applying AI to solve real-world problems and continuously learning modern AI technologies.
+            </div>
+          </div>
+
           <div class="section">
             <div class="section-title">Education</div>
-            <div class="job-title">B.Tech in Computer Science Engineering (Graduating 2026)</div>
-            <div>AI/ML & Data Science Specialist</div>
-          </div>
-          
-          <div class="section">
-            <div class="section-title">Experience</div>
-            <div class="job">
-              <span class="job-date">June 2024 - August 2024 (Internship)</span>
-              <div class="job-title">Data Analyst Intern - Maruti Suzuki India Limited</div>
-              <ul>
-                <li>Analyzed manufacturing and vehicular sales logs, scrubbing datasets and resolving discrepancies using Python.</li>
-                <li>Created interactive Power BI dashboards, decreasing diagnostic pipeline duration.</li>
-                <li>Trained machine learning models to detect anomalies and forecast parts failure.</li>
-              </ul>
+            <div class="item">
+              <div class="item-header">
+                <span>Guru Nanak Dev University, Amritsar</span>
+                <span>2022 - 2026</span>
+              </div>
+              <div class="item-sub">Bachelor of Technology in Computer Science and Engineering</div>
+            </div>
+            <div class="item">
+              <div class="item-header">
+                <span>SCR Public School, CBSE</span>
+                <span>2021 - 2022</span>
+              </div>
+              <div class="item-sub">Senior Secondary Education (PCM)</div>
+            </div>
+            <div class="item">
+              <div class="item-header">
+                <span>SCR Public School, CBSE</span>
+                <span>2019 - 2020</span>
+              </div>
+              <div class="item-sub">Secondary Education (Science)</div>
             </div>
           </div>
 
           <div class="section">
             <div class="section-title">Skills</div>
-            <div><strong>Languages:</strong> Python, SQL</div>
-            <div><strong>Libraries & Frameworks:</strong> Pandas, NumPy, PyTorch, TensorFlow, OpenCV, YOLO, Scikit-Learn, React</div>
-            <div><strong>Databases:</strong> MySQL, MongoDB, PostgreSQL</div>
-            <div><strong>Tools:</strong> Git, Power BI, VS Code, Colab</div>
+            <div class="skills-grid">
+              <div><strong>Programming Languages:</strong> Python, SQL</div>
+              <div><strong>Data Science & ML:</strong> Pandas, Numpy, Scikit-learn, ML, Data Analysis, Data Visualization, PowerBI</div>
+              <div><strong>Generative AI & LLMs:</strong> OpenAI API, LangChain, RAG, Prompt Engineering, Pinecone, Vector Databases, Embeddings, FastAPI, Streamlit</div>
+              <div><strong>Cloud & Tools:</strong> AWS EC2, Git, Github, RestAPI</div>
+              <div><strong>Soft Skills:</strong> Problem Solving, Teamwork, Quick Adaptability</div>
+            </div>
+          </div>
+          
+          <div class="section">
+            <div class="section-title">Experience</div>
+            <div class="item">
+              <div class="item-header">
+                <span>Intern At Maruti Suzuki India Limited</span>
+                <span>July 2024</span>
+              </div>
+              <ul>
+                <li>Worked on Perpetual Inventory System to track stock movements and enhance inventory accuracy.</li>
+                <li>Gained hands-on experience in real-time projects involving inventory management solutions.</li>
+                <li>Developed analytical skills to optimize warehouse and supply chain operation.</li>
+              </ul>
+            </div>
           </div>
 
           <div class="section">
-            <div class="section-title">Key Projects</div>
+            <div class="section-title">Projects</div>
+            
+            <div class="item">
+              <div class="item-header">
+                <span>Book Recommendation System - <a href="http://13.60.49.214:8051/" target="_blank">Live Demo</a></span>
+              </div>
+              <div class="item-sub">Tech Used: Python, Numpy, Pandas, Scikit-learn, Machine learning, AWS EC2, Streamlit</div>
+              <ul>
+                <li><strong>Problem Statement:</strong> Users often struggle to find relevant books from a large collection based on their interests and preferences.</li>
+                <li><strong>Solution:</strong> Developed a Book Recommendation System using similarity-based algorithms to suggest personalized books with accurate results. Deployed the application on AWS EC2 using Streamlit for public access.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="item-header">
+                <span>Road Accident Analysis Dashboard</span>
+              </div>
+              <div class="item-sub">Tech Used: Power BI, Tableau, SQL</div>
+              <ul>
+                <li><strong>Problem Statement:</strong> Road accident data was scattered and difficult to analyze, making it challenging to identify trends, hotspots, and major causes.</li>
+                <li><strong>Solution:</strong> Designed an interactive dashboard to visualize accident patterns across regions and timeframes for better decision-making. Used SQL for data cleaning and transformation to generate accurate insights for road safety improvements.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="item-header">
+                <span>Medical AI Professional Assistant - <a href="https://ai-professional.netlify.app/" target="_blank">Live Demo</a></span>
+              </div>
+              <div class="item-sub">Tech Used: Python, FastAPI, React/Streamlit, OpenAI API, LLM Integration, RAG, Pinecone Vector Database, Embeddings, HTML, CSS, JavaScript, Git, Netlify</div>
+              <ul>
+                <li><strong>Problem Statement:</strong> AI chatbots sometimes give wrong, fake, or general medical answers (hallucinations). They may not use trusted medical data, which can confuse users and create health risks.</li>
+                <li><strong>Solution:</strong> Built Medical AI Professional Assistant using RAG, where medical documents are uploaded, divided into chunks, converted into embeddings, and searched to provide accurate answers from trusted data sources.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Extracurricular Activities</div>
             <ul>
-              <li><strong>AI-Powered Role-Based Candidate Screening System:</strong> Automatically parses CVs/Resumes and scores candidates against role requirements using custom LLM and NLP logic.</li>
-              <li><strong>Medical AI Professional Assistant:</strong> Fine-tuned model answering clinical diagnostics, patient inquiries, and providing reference notes.</li>
-              <li><strong>AI-Powered Multi-Domain Recommendation System:</strong> Dynamic content recommender utilizing collaborative filtering and semantic analysis.</li>
+              <li>Won Rangla Punjab Marathon</li>
+              <li>Assisted in Placements drives For Accenture and mock interview sessions.</li>
             </ul>
           </div>
+
           <script>window.print();</script>
         </body>
       </html>
@@ -133,17 +206,6 @@ export default function Hero() {
 
       <div className="max-w-5xl mx-auto px-6 text-center z-10 flex flex-col items-center">
         
-        {/* Futuristic Terminal Chip */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyber-purple/20 bg-cyber-purple/5 backdrop-blur-md text-xs font-mono text-cyber-purple tracking-widest uppercase mb-8 shadow-lg shadow-cyber-purple/5"
-        >
-          <Terminal size={14} className="text-cyber-cyan animate-pulse" />
-          <span>AETHER SYSTEM ACTIVE</span>
-        </motion.div>
-
         {/* Glitchy Main Name */}
         <motion.h1
           initial={{ opacity: 0, scale: 0.95 }}
@@ -174,8 +236,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="max-w-2xl text-gray-400 text-sm md:text-lg leading-relaxed mb-10 text-center"
         >
-          AI/ML Engineer, Data Scientist, and Data Analyst Intern from Maruti Suzuki. 
-          Architecting robust machine learning pipelines, deep computer vision systems, and automated data engines to translate complex vectors into intelligent decisions.
+          Building intelligent machine learning solutions, computer vision systems, and data-driven applications that transform complex data into meaningful insights. Open to opportunities in AI/ML, Data Science, and Data Analytics.
         </motion.p>
 
         {/* CTA Buttons */}

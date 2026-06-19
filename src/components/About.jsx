@@ -37,7 +37,7 @@ export default function About() {
           className="text-center mb-16"
         >
           <h2 className="font-heading text-3xl md:text-5xl font-black text-white mb-4">
-            SYSTEM_PROFILE
+            PROFILE
           </h2>
           <div className="h-1 w-20 bg-cyber-cyan mx-auto rounded-full" />
           <p className="text-gray-400 font-mono text-xs tracking-widest uppercase mt-3">
@@ -68,14 +68,14 @@ export default function About() {
                   The Core Vector
                 </h3>
               </div>
-              <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
-                I am Paras Sharma, a computer science graduate student specializing in Artificial Intelligence and Machine Learning. 
-                My focus lies in building architectures that make sense of structured and unstructured vectors. I specialize in 
-                training deep convolutional neural networks for computer vision, programming neural sequence models, and building scalable data pipelines.
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                I am Paras Sharma, a Computer Science Engineering student graduating in 2026 with a strong interest in Artificial Intelligence, Machine Learning, Data Science, and Computer Vision. I have gained industry experience as a Data Analyst Intern at Maruti Suzuki India Limited, where I worked on data-driven solutions and business analytics.
+              </p>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                My expertise includes Python, SQL, Machine Learning, Deep Learning, Data Analysis, Data Visualization, and Computer Vision. I enjoy building predictive models, analyzing complex datasets, developing intelligent systems, and creating scalable applications that transform data into actionable insights.
               </p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Whether it is conducting data normalization, developing predictive regression algorithms, or creating interactive frontend shells 
-                like this portfolio, I strive to write optimized, high-performance clean code.
+                Through projects in recommendation systems, predictive analytics, and computer vision, I have developed a solid foundation in designing end-to-end data workflows, model development, and problem-solving. I am continuously exploring new technologies and best practices to build efficient, reliable, and impactful AI solutions.
               </p>
             </div>
             <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-3">
@@ -83,10 +83,16 @@ export default function About() {
                 #AI_ML_Enthusiast
               </span>
               <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
-                #Data_Architect
+                #DataScience
               </span>
               <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
-                #Systems_Learner
+                #ComputerVision
+              </span>
+              <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
+                #DataAnalytics
+              </span>
+              <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">
+                #SystemsLearner
               </span>
             </div>
           </motion.div>
@@ -107,20 +113,28 @@ export default function About() {
                 </h3>
               </div>
               
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-sm font-semibold text-white">B.Tech - Computer Science Engineering</h4>
-                  <p className="text-xs text-cyber-cyan font-mono mt-0.5">2022 - 2026 (Graduate)</p>
+              <div className="space-y-4 max-h-[300px] overflow-y-auto pr-1">
+                <div className="border-l-2 border-cyber-cyan/30 pl-3 space-y-1">
+                  <h4 className="text-sm font-bold text-white leading-tight">Guru Nanak Dev University</h4>
+                  <p className="text-[11px] text-gray-300">B.Tech - Computer Science Engineering</p>
+                  <p className="text-[10px] text-cyber-cyan font-mono">2022 - 2026</p>
                 </div>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  Focusing on Advanced Algorithms, Machine Learning Theory, Deep Learning, Database Management Systems (DBMS), and Computer Vision.
-                </p>
+                <div className="border-l-2 border-cyber-cyan/30 pl-3 space-y-1">
+                  <h4 className="text-sm font-bold text-white leading-tight">SCR Public School, CBSE</h4>
+                  <p className="text-[11px] text-gray-300">Senior Secondary Education (PCM)</p>
+                  <p className="text-[10px] text-cyber-cyan font-mono">2021 - 2022</p>
+                </div>
+                <div className="border-l-2 border-cyber-cyan/30 pl-3 space-y-1">
+                  <h4 className="text-sm font-bold text-white leading-tight">SCR Public School, CBSE</h4>
+                  <p className="text-[11px] text-gray-300">Secondary Education (Science)</p>
+                  <p className="text-[10px] text-cyber-cyan font-mono">2019 - 2020</p>
+                </div>
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-white/5 text-xs text-gray-400 font-mono flex items-center gap-2">
-              <Calendar size={14} className="text-cyber-cyan" />
-              <span>Graduation Target: 2026</span>
+            <div className="mt-6 pt-3 border-t border-white/5 text-[10px] font-mono text-gray-500 flex items-center gap-1.5">
+              <Calendar size={12} className="text-cyber-cyan" />
+              <span>RECORD_VALIDATED</span>
             </div>
           </motion.div>
 
@@ -155,7 +169,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Card 4: Interests & Ideology (Large) */}
+          {/* Card 4: Data & AI Approach (Large) */}
           <motion.div 
             variants={FADE_IN_VARIANTS}
             className="md:col-span-2 rounded-2xl glassmorphism p-8 flex flex-col justify-between group"
@@ -167,34 +181,45 @@ export default function About() {
                   <Heart size={20} />
                 </div>
                 <h3 className="font-heading text-xl font-bold text-white tracking-wide">
-                  Design & Data Ideology
+                  Data & AI Approach
                 </h3>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-white flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyber-cyan" />
-                    Cognitive Automation
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider text-cyber-cyan">
+                    Data-Driven Decisions
                   </h4>
-                  <p className="text-xs text-gray-400 leading-relaxed">
-                    Believer in automating heavy workflows. Building candidate screening tools or medical helpers that act as reasoning structures to assist humans.
+                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                    Passionate about leveraging data, machine learning, and analytics to solve real-world problems. Experienced in transforming raw data into insights.
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-white flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyber-pink" />
-                    Visual Precision
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider text-cyber-purple">
+                    ML & Computer Vision
                   </h4>
-                  <p className="text-xs text-gray-400 leading-relaxed">
-                    Even as a data specialist, I appreciate sleek aesthetics. A premium glassmorphic UI elevates data clarity, presenting indicators elegantly.
+                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                    Interested in building intelligent systems using ML, Deep Learning, and Computer Vision to automate business logic and decision structures.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider text-cyber-pink">
+                    Clean Development
+                  </h4>
+                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                    Committed to writing efficient, maintainable, and scalable code for data pipelines, machine learning models, or web architectures.
                   </p>
                 </div>
               </div>
             </div>
             
-            <div className="mt-8 pt-6 border-t border-white/5 text-[11px] font-mono text-gray-400 leading-none">
-              LOC: Delhi / Gurugram, India // Timezone: UTC+5.30
+            <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-4 text-[11px] font-mono text-gray-400 leading-tight">
+              <div>
+                <strong>LOCATION:</strong> Gurugram, Haryana, India | UTC +5:30
+              </div>
+              <div>
+                <strong>OPEN TO:</strong> AI/ML Engineer • Data Scientist • Data Analyst • Computer Vision Engineer
+              </div>
             </div>
           </motion.div>
         </motion.div>
