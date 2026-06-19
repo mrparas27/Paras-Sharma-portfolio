@@ -11,10 +11,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Brand logo */}
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-cyber-cyan to-cyber-purple flex items-center justify-center">
-            <Sparkles size={14} className="text-white" />
-          </div>
+        <div className="flex items-center">
           <span className="font-heading font-black text-white text-sm tracking-widest">
             PARAS <span className="text-cyber-cyan">SHARMA</span>
           </span>

@@ -39,10 +39,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         
         {/* Logo / Brand Name */}
-        <a href="#home" className="flex items-center gap-2 group">
-          <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-cyber-cyan to-cyber-purple flex items-center justify-center shadow-lg shadow-cyber-cyan/15 group-hover:shadow-cyber-cyan/35 transition-all">
-            <Sparkles size={18} className="text-white group-hover:scale-110 transition-transform" />
-          </div>
+        <a href="#home" className="flex items-center group">
           <span className="font-heading font-bold text-lg tracking-wider text-white transition-colors">
             PARAS <span className="text-cyber-cyan">SHARMA</span>
           </span>
