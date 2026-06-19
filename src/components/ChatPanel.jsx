@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Send, MessageSquare, X, Bot, User, Sparkles } from 'lucide-react';
+import { Send, MessageSquare, X, Bot, User, Sparkles, Download } from 'lucide-react';
 import AIAvatar from '../ThreeJS/AIAvatar';
 
 const PARAS_DATA = {
@@ -45,8 +45,12 @@ export default function ChatPanel() {
 
       const query = text.toLowerCase();
       let reply = "I'm not quite sure about that. Try asking about Paras's 'skills', 'experience' at Maruti Suzuki, 'projects', or how to 'contact' him!";
+      let showResume = false;
 
-      if (query.includes('about') || query.includes('who') || query.includes('paras') || query.includes('education') || query.includes('college')) {
+      if (query.includes('resume') || query.includes('cv') || query.includes('download') || query.includes('print') || query.includes('save')) {
+        reply = "You can download, save, or print my original, uploaded resume PDF directly. Here is the link to download the PDF:";
+        showResume = true;
+      } else if (query.includes('about') || query.includes('who') || query.includes('paras') || query.includes('education') || query.includes('college')) {
         reply = PARAS_DATA.about;
       } else if (query.includes('experience') || query.includes('intern') || query.includes('maruti') || query.includes('suzuki') || query.includes('work')) {
         reply = PARAS_DATA.experience;
@@ -63,24 +67,24 @@ export default function ChatPanel() {
       }
 
       // Typewriter simulation: update messages and stop talking when done
-      simulateTypewriter(reply);
+      simulateTypewriter(reply, showResume);
     }, 1000);
   };
 
-  const simulateTypewriter = (text) => {
+  const simulateTypewriter = (text, showResumeButton = false) => {
     const words = text.split(' ');
     let currentText = '';
     let index = 0;
     
     // Create placeholders
-    setMessages(prev => [...prev, { sender: 'ai', text: '' }]);
+    setMessages(prev => [...prev, { sender: 'ai', text: '', showResumeButton }]);
 
     const interval = setInterval(() => {
       if (index < words.length) {
         currentText += (index === 0 ? '' : ' ') + words[index];
         setMessages(prev => {
           const updated = [...prev];
-          updated[updated.length - 1] = { sender: 'ai', text: currentText };
+          updated[updated.length - 1] = { sender: 'ai', text: currentText, showResumeButton };
           return updated;
         });
         index++;
@@ -165,6 +169,18 @@ export default function ChatPanel() {
                   }`}
                 >
                   {msg.text}
+                  {msg.showResumeButton && (
+                    <div className="mt-3">
+                      <a
+                        href="/Paras_Sharma_Resume.pdf"
+                        download="Paras_Sharma_Resume.pdf"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-cyber-purple/20 border border-cyber-purple/40 text-cyber-cyan text-xs font-semibold hover:bg-cyber-purple/35 transition-all cursor-pointer"
+                      >
+                        <Download size={12} />
+                        <span>Download Resume PDF</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -192,6 +208,13 @@ export default function ChatPanel() {
               className="text-[11px] font-mono px-2.5 py-1 rounded-full border border-cyber-purple/30 text-cyber-purple hover:bg-cyber-purple/15 hover:text-white transition-all disabled:opacity-50"
             >
               /about
+            </button>
+            <button
+              onClick={() => handleSendMessage("Download Paras's Resume PDF")}
+              disabled={isThinking || isTalking}
+              className="text-[11px] font-mono px-2.5 py-1 rounded-full border border-cyber-pink/30 text-cyber-pink hover:bg-cyber-pink/15 hover:text-white transition-all disabled:opacity-50"
+            >
+              /resume
             </button>
             <button
               onClick={() => handleSendMessage("What is his Maruti Suzuki internship experience?")}

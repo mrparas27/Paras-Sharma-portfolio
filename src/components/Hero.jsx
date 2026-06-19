@@ -46,148 +46,8 @@ export default function Hero() {
   };
 
   const handleDownloadResume = () => {
-    // Generate a sleek printable window for resume
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Paras Sharma Resume</title>
-          <style>
-            body { font-family: 'Segoe UI', Arial, sans-serif; color: #222; line-height: 1.5; padding: 30px; margin: 0; background: #fff; }
-            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
-            h1 { font-size: 28px; margin: 0 0 5px 0; color: #111; text-transform: uppercase; letter-spacing: 1px; }
-            .contact-info { font-size: 13px; color: #444; margin-bottom: 5px; }
-            .contact-info a { color: #0284c7; text-decoration: none; }
-            .section { margin-bottom: 22px; }
-            .section-title { font-size: 16px; font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin-bottom: 10px; color: #111; text-transform: uppercase; letter-spacing: 0.5px; }
-            .item { margin-bottom: 12px; }
-            .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #111; }
-            .item-sub { font-style: italic; font-size: 13px; color: #555; margin-top: 1px; }
-            ul { margin: 5px 0 0 0; padding-left: 18px; font-size: 13px; color: #333; }
-            li { margin-bottom: 4px; }
-            .skills-grid { font-size: 13px; color: #333; }
-            .skills-grid div { margin-bottom: 5px; }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <h1>Paras Sharma</h1>
-            <div class="contact-info">
-              Phone: +91 9899946943 | Email: <a href="mailto:mr.paras.gautam@gmail.com">mr.paras.gautam@gmail.com</a> | Location: Gurugram, Haryana 122001
-            </div>
-            <div class="contact-info">
-              LinkedIn: <a href="https://www.linkedin.com/in/parassharma27" target="_blank">linkedin.com/in/parassharma27</a> | GitHub: <a href="https://github.com/mrparas27" target="_blank">github.com/mrparas27</a>
-            </div>
-          </div>
-          
-          <div class="section">
-            <div class="section-title">Professional Summary</div>
-            <div style="font-size: 13px; text-align: justify; color: #333;">
-              Computer Science undergraduate skilled in Python, Machine Learning, SQL, Generative AI, and LLM-based application development. Experienced in building AI-powered systems using RAG, LangChain, FastAPI, Pinecone, and OpenAI APIs. Hands-on experience with data analysis, model integration, cloud deployment, and scalable AI solutions. Passionate about applying AI to solve real-world problems and continuously learning modern AI technologies.
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Education</div>
-            <div class="item">
-              <div class="item-header">
-                <span>Guru Nanak Dev University, Amritsar</span>
-                <span>2022 - 2026</span>
-              </div>
-              <div class="item-sub">Bachelor of Technology in Computer Science and Engineering</div>
-            </div>
-            <div class="item">
-              <div class="item-header">
-                <span>SCR Public School, CBSE</span>
-                <span>2021 - 2022</span>
-              </div>
-              <div class="item-sub">Senior Secondary Education (PCM)</div>
-            </div>
-            <div class="item">
-              <div class="item-header">
-                <span>SCR Public School, CBSE</span>
-                <span>2019 - 2020</span>
-              </div>
-              <div class="item-sub">Secondary Education (Science)</div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Skills</div>
-            <div class="skills-grid">
-              <div><strong>Programming Languages:</strong> Python, SQL</div>
-              <div><strong>Data Science & ML:</strong> Pandas, Numpy, Scikit-learn, ML, Data Analysis, Data Visualization, PowerBI</div>
-              <div><strong>Generative AI & LLMs:</strong> OpenAI API, LangChain, RAG, Prompt Engineering, Pinecone, Vector Databases, Embeddings, FastAPI, Streamlit</div>
-              <div><strong>Cloud & Tools:</strong> AWS EC2, Git, Github, RestAPI</div>
-              <div><strong>Soft Skills:</strong> Problem Solving, Teamwork, Quick Adaptability</div>
-            </div>
-          </div>
-          
-          <div class="section">
-            <div class="section-title">Experience</div>
-            <div class="item">
-              <div class="item-header">
-                <span>Intern At Maruti Suzuki India Limited</span>
-                <span>July 2024</span>
-              </div>
-              <ul>
-                <li>Worked on Perpetual Inventory System to track stock movements and enhance inventory accuracy.</li>
-                <li>Gained hands-on experience in real-time projects involving inventory management solutions.</li>
-                <li>Developed analytical skills to optimize warehouse and supply chain operation.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Projects</div>
-            
-            <div class="item">
-              <div class="item-header">
-                <span>Book Recommendation System - <a href="http://13.60.49.214:8051/" target="_blank">Live Demo</a></span>
-              </div>
-              <div class="item-sub">Tech Used: Python, Numpy, Pandas, Scikit-learn, Machine learning, AWS EC2, Streamlit</div>
-              <ul>
-                <li><strong>Problem Statement:</strong> Users often struggle to find relevant books from a large collection based on their interests and preferences.</li>
-                <li><strong>Solution:</strong> Developed a Book Recommendation System using similarity-based algorithms to suggest personalized books with accurate results. Deployed the application on AWS EC2 using Streamlit for public access.</li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <div class="item-header">
-                <span>Road Accident Analysis Dashboard</span>
-              </div>
-              <div class="item-sub">Tech Used: Power BI, Tableau, SQL</div>
-              <ul>
-                <li><strong>Problem Statement:</strong> Road accident data was scattered and difficult to analyze, making it challenging to identify trends, hotspots, and major causes.</li>
-                <li><strong>Solution:</strong> Designed an interactive dashboard to visualize accident patterns across regions and timeframes for better decision-making. Used SQL for data cleaning and transformation to generate accurate insights for road safety improvements.</li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <div class="item-header">
-                <span>Medical AI Professional Assistant - <a href="https://ai-professional.netlify.app/" target="_blank">Live Demo</a></span>
-              </div>
-              <div class="item-sub">Tech Used: Python, FastAPI, React/Streamlit, OpenAI API, LLM Integration, RAG, Pinecone Vector Database, Embeddings, HTML, CSS, JavaScript, Git, Netlify</div>
-              <ul>
-                <li><strong>Problem Statement:</strong> AI chatbots sometimes give wrong, fake, or general medical answers (hallucinations). They may not use trusted medical data, which can confuse users and create health risks.</li>
-                <li><strong>Solution:</strong> Built Medical AI Professional Assistant using RAG, where medical documents are uploaded, divided into chunks, converted into embeddings, and searched to provide accurate answers from trusted data sources.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Extracurricular Activities</div>
-            <ul>
-              <li>Won Rangla Punjab Marathon</li>
-              <li>Assisted in Placements drives For Accenture and mock interview sessions.</li>
-            </ul>
-          </div>
-
-          <script>window.print();</script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
+    // Serve the uploaded original resume PDF file as-is
+    window.open('/Paras_Sharma_Resume.pdf', '_blank');
   };
 
   return (
@@ -256,10 +116,10 @@ export default function Hero() {
 
           <button
             onClick={handleDownloadResume}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl glassmorphism text-white text-sm font-semibold hover:bg-white/10 hover:border-cyber-purple/40 hover:scale-102 transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl glassmorphism text-white text-sm font-semibold hover:bg-white/10 hover:border-cyber-purple/40 hover:scale-102 transition-all cursor-pointer"
           >
             <Download size={16} className="text-cyber-cyan" />
-            <span>Print / Save Resume</span>
+            <span>Download Resume</span>
           </button>
 
           <a
