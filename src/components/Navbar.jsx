@@ -43,8 +43,8 @@ export default function Navbar() {
           <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-cyber-cyan to-cyber-purple flex items-center justify-center shadow-lg shadow-cyber-cyan/15 group-hover:shadow-cyber-cyan/35 transition-all">
             <Sparkles size={18} className="text-white group-hover:scale-110 transition-transform" />
           </div>
-          <span className="font-heading font-bold text-lg tracking-wider text-white group-hover:text-cyber-cyan transition-colors">
-            PARAS<span className="text-cyber-cyan group-hover:text-white transition-colors">.DEV</span>
+          <span className="font-heading font-bold text-lg tracking-wider text-white transition-colors">
+            PARAS <span className="text-cyber-cyan">SHARMA</span>
           </span>
         </a>
 

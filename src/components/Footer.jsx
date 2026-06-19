@@ -16,7 +16,7 @@ export default function Footer() {
             <Sparkles size={14} className="text-white" />
           </div>
           <span className="font-heading font-black text-white text-sm tracking-widest">
-            PARAS<span className="text-cyber-cyan">.DEV</span>
+            PARAS <span className="text-cyber-cyan">SHARMA</span>
           </span>
         </div>
 
