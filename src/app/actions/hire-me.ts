@@ -3,8 +3,6 @@
 import { z } from 'zod';
 import { supabase } from '@/lib/supabase';
 import { Resend } from 'resend';
-import fs from 'fs';
-import path from 'path';
 
 // Define opportunity schema with Zod
 const OpportunitySchema = z.object({
@@ -133,6 +131,8 @@ export async function submitOpportunity(prevState: any, formData: FormData): Pro
     // Local JSON DB fallback if Supabase fails or is not configured
     if (!dbSuccess) {
       try {
+        const fs = await import('fs');
+        const path = await import('path');
         const dbPath = path.join(process.cwd(), 'opportunities_db.json');
         let currentDB: any[] = [];
         if (fs.existsSync(dbPath)) {
@@ -247,6 +247,8 @@ https://paras-sharma-portfolio.vercel.app
     } else {
       // Mock email log file fallback
       try {
+        const fs = await import('fs');
+        const path = await import('path');
         const emailLogPath = path.join(process.cwd(), 'emails_sent_log.txt');
         const logContent = `
 ========================================
@@ -301,6 +303,8 @@ export async function getOpportunities(): Promise<any[]> {
 
   // Fallback to local JSON DB
   try {
+    const fs = await import('fs');
+    const path = await import('path');
     const dbPath = path.join(process.cwd(), 'opportunities_db.json');
     if (fs.existsSync(dbPath)) {
       const content = fs.readFileSync(dbPath, 'utf-8');
@@ -333,6 +337,8 @@ export async function updateOpportunityStatus(id: string, status: string): Promi
 
   // Fallback to local JSON DB
   try {
+    const fs = await import('fs');
+    const path = await import('path');
     const dbPath = path.join(process.cwd(), 'opportunities_db.json');
     if (fs.existsSync(dbPath)) {
       const content = fs.readFileSync(dbPath, 'utf-8');
@@ -350,4 +356,3 @@ export async function updateOpportunityStatus(id: string, status: string): Promi
   }
   return { success: false };
 }
-

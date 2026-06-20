@@ -63,6 +63,11 @@ What would you like to explore?`
   
   // Custom interaction states
   const [chatMode, setChatMode] = useState('normal'); // normal, jd_match, recruiter_intake
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const [intakeStep, setIntakeStep] = useState(0);
   const [intakeData, setIntakeData] = useState({ role: '', exp: '', stack: '', loc: '', comp: '' });
   
@@ -352,11 +357,13 @@ Click the '/hire_me' action to connect with Paras regarding this opportunity!`;
             
             {/* 3D Canvas Area */}
             <div className="absolute left-4 top-2 bottom-2 w-28 h-28 pointer-events-auto">
-              <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }}>
-                <ambientLight intensity={1.5} />
-                <directionalLight position={[2, 2, 2]} intensity={2} />
-                <AIAvatar isTalking={isTalking} isThinking={isThinking} />
-              </Canvas>
+              {mounted && (
+                <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }}>
+                  <ambientLight intensity={1.5} />
+                  <directionalLight position={[2, 2, 2]} intensity={2} />
+                  <AIAvatar isTalking={isTalking} isThinking={isThinking} />
+                </Canvas>
+              )}
             </div>
 
             {/* Header Text */}

@@ -54,6 +54,11 @@ const PROJECTS_DATA = [
 
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev === 0 ? PROJECTS_DATA.length - 1 : prev - 1));
@@ -100,18 +105,20 @@ export default function Projects() {
 
           {/* R3F Canvas Container */}
           <div className="h-[360px] md:h-[420px] w-full flex items-center justify-center relative">
-            <Canvas 
-              camera={{ position: [0, 0, 7.5], fov: 48 }}
-              className="canvas-interactive"
-            >
-              <ambientLight intensity={1.8} />
-              <pointLight position={[5, 10, 5]} intensity={1.5} />
-              <ProjectsCarousel 
-                projects={PROJECTS_DATA} 
-                activeIndex={activeIndex} 
-                setActiveIndex={setActiveIndex} 
-              />
-            </Canvas>
+            {mounted && (
+              <Canvas 
+                camera={{ position: [0, 0, 7.5], fov: 48 }}
+                className="canvas-interactive"
+              >
+                <ambientLight intensity={1.8} />
+                <pointLight position={[5, 10, 5]} intensity={1.5} />
+                <ProjectsCarousel 
+                  projects={PROJECTS_DATA} 
+                  activeIndex={activeIndex} 
+                  setActiveIndex={setActiveIndex} 
+                />
+              </Canvas>
+            )}
 
             {/* Left/Right Arrow Navigators */}
             <button

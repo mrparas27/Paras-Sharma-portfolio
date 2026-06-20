@@ -52,6 +52,11 @@ const CARD_VARIANTS = {
 };
 
 export default function Skills() {
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <section id="skills" className="py-24 relative overflow-hidden bg-cyber-dark/30">
       
@@ -88,14 +93,16 @@ export default function Skills() {
               ROTATING_VECTOR_SPHERE.bin
             </div>
             
-            <Canvas 
-              camera={{ position: [0, 0, 7.5], fov: 60 }} 
-              className="canvas-interactive"
-            >
-              <ambientLight intensity={1.5} />
-              <pointLight position={[10, 10, 10]} intensity={1.5} />
-              <SkillsGlobe />
-            </Canvas>
+            {mounted && (
+              <Canvas 
+                camera={{ position: [0, 0, 7.5], fov: 60 }} 
+                className="canvas-interactive"
+              >
+                <ambientLight intensity={1.5} />
+                <pointLight position={[10, 10, 10]} intensity={1.5} />
+                <SkillsGlobe />
+              </Canvas>
+            )}
 
             {/* Instruction badge */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full border border-white/10 bg-black/60 backdrop-blur-md text-[10px] font-mono text-gray-400 tracking-wider">

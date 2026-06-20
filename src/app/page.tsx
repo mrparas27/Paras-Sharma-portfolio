@@ -15,16 +15,23 @@ import ChatPanel from '@/components/ChatPanel';
 import ParticlesBg from '@/ThreeJS/ParticlesBg';
 
 export default function PortfolioPage() {
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-cyber-dark text-gray-100 overflow-x-hidden font-sans selection:bg-cyber-cyan/30 selection:text-white">
       
       {/* Unified 3D Background Particles Canvas */}
       <div className="fixed inset-0 z-0 pointer-events-none w-full h-full">
-        <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
-          <ambientLight intensity={1.2} />
-          <pointLight position={[5, 5, 5]} intensity={1.0} />
-          <ParticlesBg />
-        </Canvas>
+        {mounted && (
+          <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
+            <ambientLight intensity={1.2} />
+            <pointLight position={[5, 5, 5]} intensity={1.0} />
+            <ParticlesBg />
+          </Canvas>
+        )}
       </div>
 
       {/* Floating 3D AI Assistant Chat Panel */}
