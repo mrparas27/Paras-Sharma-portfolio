@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, Github, Linkedin, Send, Sparkles, ShieldCheck, Cpu } from 'lucide-react';
+import { Mail, Phone, Github, Linkedin, Send, ShieldCheck, Cpu } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import emailjs from '@emailjs/browser';
+import { submitOpportunity } from '@/app/actions/hire-me';
 
 export default function Contact() {
-  const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({
+    fullName: '',
+    companyName: '',
+    recruiterName: '',
+    roleOffered: '',
+    email: '',
+    phone: '',
+    linkedinProfile: '',
+    companyWebsite: '',
+    opportunityType: 'Full-Time',
+    joiningDate: '',
+    salaryRange: '',
+    workMode: 'Remote',
+    location: '',
+    message: '',
+    fax_number: '', // Honeypot field
+  });
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('idle'); // idle, sending, success
@@ -13,68 +30,51 @@ export default function Contact() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
-    // Clear validation error when user types
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formState.name.trim()) newErrors.name = "Full Name is required";
-    
-    if (!formState.email.trim()) {
-      newErrors.email = "Work Email is required";
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formState.email)) {
-        newErrors.email = "Please enter a valid work email address";
-      }
-    }
-    
-    if (!formState.subject.trim()) newErrors.subject = "Subject is required";
-    if (!formState.message.trim()) newErrors.message = "Message details are required";
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-
     setIsSubmitting(true);
     setSubmitStatus('sending');
     setStatusLog("ESTABLISHING_SECURE_TUNNEL...");
 
-    // EmailJS parameters
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_placeholder';
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_placeholder';
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'public_placeholder';
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, val]) => {
+      data.append(key, val);
+    });
 
-    // If EmailJS credentials are provided, send real email. Otherwise, run mock logs and succeed.
-    if (serviceId !== 'service_placeholder' && publicKey !== 'public_placeholder') {
+    try {
       setTimeout(() => setStatusLog("ENCRYPTING_PAYLOAD: AES_256..."), 400);
       setTimeout(() => setStatusLog("TRANSMITTING_VECTOR_STREAM..."), 800);
-
-      emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: formState.name,
-          from_email: formState.email,
-          subject: formState.subject,
-          message: formState.message,
-          to_email: 'mr.paras.gautam@gmail.com'
-        },
-        publicKey
-      )
-      .then(() => {
+      
+      const result = await submitOpportunity(null, data);
+      
+      if (result.success) {
         setTimeout(() => {
           setSubmitStatus('success');
           setIsSubmitting(false);
-          setFormState({ name: '', email: '', subject: '', message: '' });
+          setFormData({
+            fullName: '',
+            companyName: '',
+            recruiterName: '',
+            roleOffered: '',
+            email: '',
+            phone: '',
+            linkedinProfile: '',
+            companyWebsite: '',
+            opportunityType: 'Full-Time',
+            joiningDate: '',
+            salaryRange: '',
+            workMode: 'Remote',
+            location: '',
+            message: '',
+            fax_number: '',
+          });
+          setErrors({});
           
           confetti({
             particleCount: 100,
@@ -82,45 +82,21 @@ export default function Contact() {
             origin: { y: 0.6 }
           });
         }, 1200);
-      })
-      .catch((err) => {
-        console.error("EmailJS Error:", err);
-        // Fallback: succeed for demo purposes in case of network or key issues
+      } else {
         setTimeout(() => {
-          setSubmitStatus('success');
+          setSubmitStatus('idle');
           setIsSubmitting(false);
-          setFormState({ name: '', email: '', subject: '', message: '' });
+          setErrors(result.errors || {});
+          setStatusLog("");
         }, 1200);
-      });
-    } else {
-      // Simulation logs
-      const logs = [
-        "ESTABLISHING_SECURE_TUNNEL...",
-        "ENCRYPTING_PAYLOAD: AES_256...",
-        "TRANSMITTING_VECTOR_STREAM...",
-        "HANDSHAKE_RECEIVED: 200_OK"
-      ];
-
-      let delay = 0;
-      logs.forEach((log, idx) => {
-        setTimeout(() => {
-          setStatusLog(log);
-          if (idx === logs.length - 1) {
-            setTimeout(() => {
-              setSubmitStatus('success');
-              setIsSubmitting(false);
-              setFormState({ name: '', email: '', subject: '', message: '' });
-              
-              confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-              });
-            }, 600);
-          }
-        }, delay);
-        delay += 600;
-      });
+      }
+    } catch (err) {
+      console.error(err);
+      setTimeout(() => {
+        setSubmitStatus('idle');
+        setIsSubmitting(false);
+        setStatusLog("");
+      }, 1200);
     }
   };
 
@@ -130,7 +106,7 @@ export default function Contact() {
       {/* Background glow overlay */}
       <div className="absolute bottom-1/4 left-1/4 w-[350px] h-[350px] bg-cyber-purple/5 blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Heading */}
         <motion.div
@@ -145,14 +121,14 @@ export default function Contact() {
           </h2>
           <div className="h-1 w-20 bg-cyber-purple mx-auto rounded-full" />
           <p className="text-gray-400 font-mono text-xs tracking-widest uppercase mt-3">
-            Recruitment Gateway & Inquiry Channels
+            Opportunity Gateway & Recruitment Inquiries
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: Direct channels */}
-          <div className="space-y-6 text-left">
+          {/* Left Column: Direct channels (Col 4) */}
+          <div className="lg:col-span-4 space-y-6 text-left">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -228,13 +204,13 @@ export default function Contact() {
             </motion.div>
           </div>
 
-          {/* Right Column: recruiter contact form */}
+          {/* Right Column: recruiter contact form (Col 8) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl glassmorphism p-8 border border-white/5 text-left relative overflow-hidden"
+            className="lg:col-span-8 rounded-2xl glassmorphism p-8 border border-white/5 text-left relative overflow-hidden"
             style={{ borderWidth: '1px' }}
           >
             <AnimatePresence mode="wait">
@@ -246,82 +222,256 @@ export default function Contact() {
                   exit={{ opacity: 0 }}
                   className="space-y-6"
                 >
-                  {/* Recruiter specific prompt text */}
                   <p className="text-xs text-gray-400 leading-relaxed border-b border-white/5 pb-4">
-                    Interested in discussing AI/ML, Data Science, Data Analytics, or potential opportunities? Feel free to reach out. I'll get back to you as soon as possible.
+                    Recruiters, hiring managers, and founders: fill out this opportunity briefing form. It will instantly connect with my notification servers and database leads.
                   </p>
 
-                  <form onSubmit={handleFormSubmit} className="space-y-4">
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
                     
-                    {/* Full Name */}
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Full Name</label>
+                    {/* Honeypot field (hidden from users, bot trap) */}
+                    <div className="hidden">
                       <input
                         type="text"
-                        name="name"
-                        value={formState.name}
+                        name="fax_number"
+                        value={formData.fax_number}
                         onChange={handleInputChange}
-                        placeholder="Enter your full name"
-                        className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
-                          errors.name ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
-                        }`}
+                        tabIndex={-1}
+                        autoComplete="off"
                       />
-                      {errors.name && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.name}</p>}
                     </div>
 
-                    {/* Work Email */}
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Work Email</label>
-                      <input
-                        type="text"
-                        name="email"
-                        value={formState.email}
-                        onChange={handleInputChange}
-                        placeholder="Enter your email address"
-                        className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
-                          errors.email ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
-                        }`}
-                      />
-                      {errors.email && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.email}</p>}
+                    {/* SECTION 1: RECRUITER & COMPANY INFO */}
+                    <div className="space-y-4">
+                      <h4 className="text-xs font-mono font-bold tracking-widest text-cyber-cyan uppercase">
+                        [01_RECRUITER_BRIEF]
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Recruiter Name */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Recruiter Name *</label>
+                          <input
+                            type="text"
+                            name="recruiterName"
+                            value={formData.recruiterName}
+                            onChange={handleInputChange}
+                            placeholder="Enter your name"
+                            className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
+                              errors.recruiterName ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
+                            }`}
+                          />
+                          {errors.recruiterName && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.recruiterName[0]}</p>}
+                        </div>
+
+                        {/* Company Name */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Company Name *</label>
+                          <input
+                            type="text"
+                            name="companyName"
+                            value={formData.companyName}
+                            onChange={handleInputChange}
+                            placeholder="Enter company name"
+                            className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
+                              errors.companyName ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
+                            }`}
+                          />
+                          {errors.companyName && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.companyName[0]}</p>}
+                        </div>
+
+                        {/* Full Name */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Your Full Name *</label>
+                          <input
+                            type="text"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleInputChange}
+                            placeholder="Enter full name"
+                            className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
+                              errors.fullName ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
+                            }`}
+                          />
+                          {errors.fullName && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.fullName[0]}</p>}
+                        </div>
+
+                        {/* Work Email */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Work Email *</label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            placeholder="recruiter@company.com"
+                            className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
+                              errors.email ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
+                            }`}
+                          />
+                          {errors.email && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.email[0]}</p>}
+                        </div>
+
+                        {/* Phone */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Phone Number</label>
+                          <input
+                            type="text"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            placeholder="e.g. +91 98999 46943"
+                            className="w-full bg-white/5 border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white"
+                          />
+                        </div>
+
+                        {/* Company Website */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Company Website</label>
+                          <input
+                            type="url"
+                            name="companyWebsite"
+                            value={formData.companyWebsite}
+                            onChange={handleInputChange}
+                            placeholder="https://company.com"
+                            className="w-full bg-white/5 border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white"
+                          />
+                        </div>
+
+                        {/* LinkedIn Profile */}
+                        <div className="space-y-1 md:col-span-2">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Your LinkedIn Profile URL</label>
+                          <input
+                            type="url"
+                            name="linkedinProfile"
+                            value={formData.linkedinProfile}
+                            onChange={handleInputChange}
+                            placeholder="https://linkedin.com/in/username"
+                            className="w-full bg-white/5 border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white"
+                          />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Subject */}
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Subject</label>
-                      <input
-                        type="text"
-                        name="subject"
-                        value={formState.subject}
-                        onChange={handleInputChange}
-                        placeholder="Job Opportunity / Collaboration"
-                        className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
-                          errors.subject ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
-                        }`}
-                      />
-                      {errors.subject && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.subject}</p>}
+                    {/* SECTION 2: OPPORTUNITY SPECIFICS */}
+                    <div className="space-y-4">
+                      <h4 className="text-xs font-mono font-bold tracking-widest text-cyber-purple uppercase">
+                        [02_OPPORTUNITY_METRIC]
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Role Offered */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Role Offered *</label>
+                          <input
+                            type="text"
+                            name="roleOffered"
+                            value={formData.roleOffered}
+                            onChange={handleInputChange}
+                            placeholder="e.g. AI Engineer / Data Analyst"
+                            className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white ${
+                              errors.roleOffered ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
+                            }`}
+                          />
+                          {errors.roleOffered && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.roleOffered[0]}</p>}
+                        </div>
+
+                        {/* Opportunity Type */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Opportunity Type *</label>
+                          <select
+                            name="opportunityType"
+                            value={formData.opportunityType}
+                            onChange={handleInputChange}
+                            className="w-full bg-cyber-dark border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white cursor-pointer"
+                          >
+                            <option value="Internship">Internship</option>
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Freelance">Freelance</option>
+                            <option value="Consulting">Consulting</option>
+                          </select>
+                        </div>
+
+                        {/* Expected Joining Date */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Expected Joining Date</label>
+                          <input
+                            type="date"
+                            name="joiningDate"
+                            value={formData.joiningDate}
+                            onChange={handleInputChange}
+                            className="w-full bg-white/5 border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white cursor-pointer"
+                          />
+                        </div>
+
+                        {/* Salary Range */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Salary/Budget Range</label>
+                          <input
+                            type="text"
+                            name="salaryRange"
+                            value={formData.salaryRange}
+                            onChange={handleInputChange}
+                            placeholder="e.g. $80k - $100k or 15-20 LPA"
+                            className="w-full bg-white/5 border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white"
+                          />
+                        </div>
+
+                        {/* Work Mode */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Work Mode *</label>
+                          <select
+                            name="workMode"
+                            value={formData.workMode}
+                            onChange={handleInputChange}
+                            className="w-full bg-cyber-dark border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white cursor-pointer"
+                          >
+                            <option value="Remote">Remote</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Onsite">Onsite</option>
+                          </select>
+                        </div>
+
+                        {/* Location */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Location</label>
+                          <input
+                            type="text"
+                            name="location"
+                            value={formData.location}
+                            onChange={handleInputChange}
+                            placeholder="e.g. Gurugram, India or Remote"
+                            className="w-full bg-white/5 border border-white/5 rounded-xl text-sm px-4 py-3 focus:outline-none focus:border-cyber-cyan/40 transition-colors text-white"
+                          />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Message */}
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Message</label>
-                      <textarea
-                        name="message"
-                        value={formState.message}
-                        onChange={handleInputChange}
-                        rows="4"
-                        placeholder="Tell me about the role, project, or opportunity"
-                        className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white resize-none ${
-                          errors.message ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
-                        }`}
-                      />
-                      {errors.message && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.message}</p>}
+                    {/* SECTION 3: MESSAGE DETAILS */}
+                    <div className="space-y-4">
+                      <h4 className="text-xs font-mono font-bold tracking-widest text-cyber-pink uppercase">
+                        [03_STATEMENT_DATA]
+                      </h4>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Role Message Details *</label>
+                        <textarea
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          rows={4}
+                          placeholder="Tell me about the team structure, expectations, tech stacks, or project scopes..."
+                          className={`w-full bg-white/5 border rounded-xl text-sm px-4 py-3 focus:outline-none transition-colors text-white resize-none ${
+                            errors.message ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-cyber-cyan/40'
+                          }`}
+                        />
+                        {errors.message && <p className="text-[10px] text-red-400 font-mono mt-0.5">{errors.message[0]}</p>}
+                      </div>
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 mt-2 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-purple text-white text-sm font-semibold hover:shadow-cyan-500/25 hover:shadow-lg transition-all active:scale-98 cursor-pointer border border-white/10"
+                      disabled={isSubmitting}
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 mt-2 rounded-xl bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-pink text-white text-sm font-semibold hover:shadow-cyan-500/25 hover:shadow-lg transition-all active:scale-98 cursor-pointer border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <span>Send Message</span>
+                      <span>Submit Opportunity Details</span>
                       <Send size={14} />
                     </button>
                   </form>
@@ -331,15 +481,15 @@ export default function Contact() {
               {submitStatus === 'sending' && (
                 <motion.div
                   key="sending"
-                  className="h-[400px] flex flex-col items-center justify-center text-center space-y-6"
+                  className="h-[500px] flex flex-col items-center justify-center text-center space-y-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
                   <Cpu className="text-cyber-purple animate-spin" size={48} />
                   <div className="space-y-2">
-                    <h4 className="font-heading font-bold text-white text-base">Processing Transmission</h4>
-                    <p className="text-xs text-cyber-purple font-mono bg-cyber-purple/5 border border-cyber-purple/10 px-4 py-1.5 rounded-lg select-none">
+                    <h4 className="font-heading font-bold text-white text-base">Processing Opportunity Brief</h4>
+                    <p className="text-xs text-cyber-purple font-mono bg-cyber-purple/5 border border-cyber-purple/10 px-4 py-1.5 rounded-lg select-none min-w-[250px]">
                       {statusLog}
                     </p>
                   </div>
@@ -349,7 +499,7 @@ export default function Contact() {
               {submitStatus === 'success' && (
                 <motion.div
                   key="success"
-                  className="h-[400px] flex flex-col items-center justify-center text-center space-y-6"
+                  className="h-[500px] flex flex-col items-center justify-center text-center space-y-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -357,17 +507,18 @@ export default function Contact() {
                   <div className="h-16 w-16 rounded-full bg-cyber-emerald/15 text-cyber-emerald flex items-center justify-center border border-cyber-emerald/30 animate-bounce">
                     <ShieldCheck size={28} />
                   </div>
-                  <div className="space-y-3">
-                    <h4 className="font-heading font-black text-white text-xl uppercase">Transmission Confirmed</h4>
-                    <p className="text-xs text-gray-300 max-w-sm leading-relaxed mx-auto">
-                      Thank you for reaching out. Your message has been sent successfully. I'll respond soon.
+                  <div className="space-y-3 px-4">
+                    <h4 className="font-heading font-black text-cyber-emerald text-xl uppercase">✅ Opportunity Submitted Successfully</h4>
+                    <p className="text-sm text-gray-200 font-semibold mt-4">Thank you for reaching out.</p>
+                    <p className="text-xs text-gray-400 max-w-md leading-relaxed mx-auto">
+                      Your message has been delivered to Paras Sharma and a confirmation email has been sent to your inbox. I look forward to reviewing it and connecting with you!
                     </p>
                   </div>
                   <button
                     onClick={() => setSubmitStatus('idle')}
                     className="px-5 py-2.5 rounded-xl border border-white/10 text-xs text-gray-300 hover:text-white hover:bg-white/5 transition-all font-mono"
                   >
-                    SEND_ANOTHER_RECORD
+                    SUBMIT_NEW_OPPORTUNITY
                   </button>
                 </motion.div>
               )}
