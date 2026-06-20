@@ -1,12 +1,12 @@
-# Paras-Sharma-portfolio
+# Paras Sharma Portfolio
 
-A world-class, futuristic 3D developer portfolio website built for Paras Sharma — AI/ML Engineer, Data Scientist, and Data Analyst.
+A world-class developer portfolio website built for Paras Sharma — AI/ML Engineer, Data Scientist, and Data Analyst.
 
 ## 🚀 Live Demo Server
-*   Dev URL: `http://localhost:5173/`
+*   Dev URL: `http://localhost:3000/`
 
 ## 🛡️ Technologies Used
-*   **Core**: React (v19) & Vite
+*   **Core**: Next.js 15 (App Router) & TypeScript
 *   **3D Elements**: Three.js, React Three Fiber (R3F), and `@react-three/drei`
 *   **Styling**: Tailwind CSS (v4) with Custom Glassmorphism Theme
 *   **Animations**: Framer Motion (for viewport transitions) and Canvas-Confetti (for celebration triggers)

@@ -116,7 +116,7 @@ export async function submitOpportunity(prevState: any, formData: FormData): Pro
     let dbSuccess = false;
     const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (isSupabaseConfigured) {
+    if (isSupabaseConfigured && supabase) {
       try {
         const { error } = await supabase.from('opportunities').insert(newOpportunity);
         if (!error) {
@@ -286,7 +286,7 @@ ${autoReplyBody}
 
 export async function getOpportunities(): Promise<any[]> {
   const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (isSupabaseConfigured) {
+  if (isSupabaseConfigured && supabase) {
     try {
       const { data, error } = await supabase
         .from('opportunities')
@@ -315,7 +315,7 @@ export async function getOpportunities(): Promise<any[]> {
 
 export async function updateOpportunityStatus(id: string, status: string): Promise<{ success: boolean }> {
   const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (isSupabaseConfigured) {
+  if (isSupabaseConfigured && supabase) {
     try {
       const { error } = await supabase
         .from('opportunities')
